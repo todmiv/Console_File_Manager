@@ -5,18 +5,29 @@ import random
 
 # Функция просмотра информации об операционной системе
 def view_operating_system_info():
-    print(f"Информация об операционной системе:")
-    print(f"Операционная система: {platform.system()}")
-    print(f"Версия: {platform.release()}")
+    output = "Информация об операционной системе:\n"
+    output += f"Операционная система: {platform.system()}\n"
+    output += f"Версия: {platform.release()}"
+    return output
 
 
 # Функция просмотр информации о создателе программы
 def view_program_creator():
-    print("Информация о создателе программы:")
-    print("Создатель программы: '@todmiv'")
+    output = "Информация о создателе программы:\n"
+    output += "Создатель программы: '@todmiv'"
+    return output
 
 
-# Функция игры викторина
+# Функции игры викторина
+def choose_random_people(people, num_people):
+    return random.sample(list(people.keys()), num_people)
+
+def check_answer(person, date, people):
+    if date == people[person]:
+        return True
+    else:
+        return False
+
 def play_quiz():
     people = {
         "Пушкин Александр Сергеевич": "26.05.1799",
@@ -32,29 +43,24 @@ def play_quiz():
     }
 
     while True:
-        # Выбираем 5 случайных людей
-        random_people = random.sample(list(people.keys()), 5)
+        random_people = choose_random_people(people, 5)
 
         correct_answers = 0
         wrong_answers = 0
 
         for person in random_people:
-            # Выводим имя человека и запрашиваем дату рождения
             date = input(f"Введите дату рождения для {person}: ")
 
-            # Проверяем правильность ответа
-            if date == people[person]:
+            if check_answer(person, date, people):
                 print("Правильно!")
                 correct_answers += 1
             else:
                 print(f"Неправильно. Правильный ответ: {person} родился {people[person]}")
                 wrong_answers += 1
 
-        # Выводим результаты
         print(f"Правильных ответов: {correct_answers}")
         print(f"Неправильных ответов: {wrong_answers}")
 
-        # Предлагаем начать снова
         play_again = input("Хотите начать снова? (да/нет): ")
         if play_again.lower() != "да":
             break

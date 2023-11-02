@@ -3,7 +3,7 @@ from delete_file_or_folder import delete_file_or_folder as dfof
 from copy_file_or_folder import copy_file_or_folder as cfof
 from view_directory_contents import view_directory_contents as vdc
 from view_only_folders_or_files import view_only_folders_or_files as vofof
-from five_functions import *
+from seven_functions import *
 
 def exit_program():
     print("Выход из программы.")
@@ -41,9 +41,9 @@ def main():
         elif choice == "6":
             vofof(choice)
         elif choice == "7":
-            view_operating_system_info()
+            print(view_operating_system_info())
         elif choice == "8":
-            view_program_creator()
+            print(view_program_creator())
         elif choice == "9":
             play_quiz()
         elif choice == "10":
