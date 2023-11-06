@@ -1,7 +1,8 @@
 from seven_functions import *
 import platform
+import os
 import unittest.mock
-
+from view_and_save_directory_contents import save_directory_contents
 
 # Тесты для функции view_operating_system_info
 def test_view_operating_system_info():
@@ -83,3 +84,38 @@ def test_bank_account():
     assert choice == "4", "Ошибка: неправильный выбор действия для выхода"
 
     print("Все тесты пройдены успешно!")
+
+
+def test_save_directory_contents():
+    # Создаем временную директорию для теста
+    os.mkdir("test_directory")
+    os.mkdir("test_directory/sub_directory")
+    os.mkdir("test_directory/another_directory")
+    with open("test_directory/file1.txt", "w") as f:
+        f.write("Файл 1")
+    with open("test_directory/file2.txt", "w") as f:
+        f.write("Файл 2")
+    os.chdir("test_directory")
+
+    # Вызываем функцию, которую нужно протестировать
+    save_directory_contents()
+
+    # Проверяем, что файл listdir.txt был создан
+    assert os.path.exists("listdir.txt")
+
+    # Проверяем содержимое файла listdir.txt
+    with open("listdir.txt", "r") as f:
+        lines = f.readlines()
+        assert lines[0].strip() == "files: file1.txt, file2.txt"
+        assert lines[1].strip() == "dirs: another_directory, sub_directory"
+
+    # Удаляем временную директорию и файл listdir.txt после теста
+    os.remove("listdir.txt")
+    os.remove("file1.txt")
+    os.remove("file2.txt")
+    os.rmdir("sub_directory")
+    os.rmdir("another_directory")
+    os.chdir("..")
+    os.rmdir("test_directory")
+
+    print("Тест успешно пройден")
