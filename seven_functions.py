@@ -1,6 +1,8 @@
 import os
 import platform
 import random
+import json
+from prettytable import PrettyTable
 
 
 # Функция просмотра информации об операционной системе
@@ -68,28 +70,56 @@ def play_quiz():
 
 # Функция работы с банковским счетом
 def bank_account():
-    balance = 0  # начальный баланс счета
+    # Проверить наличие файлов balance.json и history.json
+    if not os.path.exists("balance.json"):
+        with open("balance.json", "w") as f:
+            json.dump(0, f)
+    if not os.path.exists("history.json"):
+        with open("history.json", "w") as f:
+            json.dump([], f)
+
+    # Определить начальный баланс счета
+    with open("balance.json", "r") as f:
+        balance = json.load(f)
+
+    # Определить историю покупок
+    with open("history.json", "r") as f:
+        history = json.load(f)
+
     while True:
         print("Выберите действие:")
         print("1 - Пополнить счет")
-        print("2 - Снять со счета")
+        print("2 - Покупки")
         print("3 - Проверить баланс")
-        print("4 - Выйти из программы")
+        print("4 - Посмотреть историю покупок")
+        print("5 - Выйти из программы")
         choice = input("Введите номер действия: ")
         if choice == "1":
             amount = float(input("Введите сумму для пополнения: "))
             balance += amount
             print(f"Счет пополнен на {amount} рублей. Текущий баланс: {balance} рублей.")
         elif choice == "2":
-            amount = float(input("Введите сумму для снятия: "))
+            name = input("Введите наименование покупки: ")
+            amount = float(input("Введите сумму покупки: "))
             if amount > balance:
                 print("На счете недостаточно средств.")
             else:
                 balance -= amount
-                print(f"Со счета снято {amount} рублей. Текущий баланс: {balance} рублей.")
+                history.append({"name": name, "amount": amount})
+                print(f"Совершена покупка на сумму {amount} рублей. Текущий баланс: {balance} рублей.")
         elif choice == "3":
             print(f"Текущий баланс: {balance} рублей.")
         elif choice == "4":
+            table = PrettyTable()
+            table.field_names = ["№", "Наименование", "Сумма"]
+            for i, item in enumerate(history, start=1):
+                table.add_row([i, item["name"], item["amount"]])
+            print(table)
+        elif choice == "5":
+            with open("balance.json", "w") as f:
+                json.dump(balance, f)
+            with open("history.json", "w") as f:
+                json.dump(history, f)
             print("Работа с банковским счетом завершена.")
             break
         else:

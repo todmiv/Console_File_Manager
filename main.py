@@ -1,7 +1,8 @@
 from create_folder import create_folder as cf
 from delete_file_or_folder import delete_file_or_folder as dfof
 from copy_file_or_folder import copy_file_or_folder as cfof
-from view_directory_contents import view_directory_contents as vdc
+from view_and_save_directory_contents import view_directory_contents as vdc
+from view_and_save_directory_contents import save_directory_contents as sdc
 from view_only_folders_or_files import view_only_folders_or_files as vofof
 from seven_functions import *
 
@@ -17,14 +18,15 @@ def main():
         print("2. Удалить (файл/папку)")
         print("3. Копировать (файл/папку)")
         print("4. Просмотр содержимого рабочей директории")
-        print("5. Посмотреть только папки")
-        print("6. Посмотреть только файлы")
-        print("7. Просмотр информации об операционной системе")
-        print("8. Создатель программы")
-        print("9. Играть в викторину")
-        print("10. Мой банковский счет")
-        print("11. Смена рабочей директории")
-        print("12. Выход")
+        print("5. Cохранение содержимого рабочей директории в файл")
+        print("6. Посмотреть только папки")
+        print("7. Посмотреть только файлы")
+        print("8. Просмотр информации об операционной системе")
+        print("9. Создатель программы")
+        print("10. Играть в викторину")
+        print("11. Мой банковский счет")
+        print("12. Смена рабочей директории")
+        print("13. Выход")
 
         choice = input("Выберите пункт меню: ")
 
@@ -37,20 +39,22 @@ def main():
         elif choice == "4":
             vdc()
         elif choice == "5":
-            vofof(choice)
+            sdc()
         elif choice == "6":
             vofof(choice)
         elif choice == "7":
-            print(view_operating_system_info())
+            vofof(choice)
         elif choice == "8":
-            print(view_program_creator())
+            print(view_operating_system_info())
         elif choice == "9":
-            play_quiz()
+            print(view_program_creator())
         elif choice == "10":
-            bank_account()
+            play_quiz()
         elif choice == "11":
-            change_working_directory()
+            bank_account()
         elif choice == "12":
+            change_working_directory()
+        elif choice == "13":
             exit_program()
         else:
             print("Неверный выбор. Попробуйте еще раз.")
