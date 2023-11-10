@@ -3,17 +3,22 @@ import platform
 import random
 import json
 from prettytable import PrettyTable
+from decorators import beautiful_output
 
 
 # Функция просмотра информации об операционной системе
 def view_operating_system_info():
-    output = "Информация об операционной системе:\n"
-    output += f"Операционная система: {platform.system()}\n"
-    output += f"Версия: {platform.release()}"
-    return output
+    try:
+        output = "Информация об операционной системе:\n"
+        output += f"Операционная система: {platform.system()}\n"
+        output += f"Версия: {platform.release()}"
+        return output
+    except Exception as e:
+        return f"Ошибка при получении информации об операционной системе: {e}"
 
 
 # Функция просмотр информации о создателе программы
+@beautiful_output
 def view_program_creator():
     output = "Информация о создателе программы:\n"
     output += "Создатель программы: '@todmiv'"
@@ -24,11 +29,13 @@ def view_program_creator():
 def choose_random_people(people, num_people):
     return random.sample(list(people.keys()), num_people)
 
+
 def check_answer(person, date, people):
     if date == people[person]:
         return True
     else:
         return False
+
 
 def play_quiz():
     people = {
@@ -127,10 +134,16 @@ def bank_account():
 
 
 # Функция изменения рабочей директории
+@beautiful_output
 def change_working_directory():
     path = input("Введите путь к новой рабочей директории: ")
     if os.path.exists(path):
-        os.chdir(path)
-        print(f"Рабочая директория изменена на {path}.")
+        try:
+            os.chdir(path)
+            result = f"Рабочая директория изменена на {path}."
+        except OSError as e:
+            result = f"Ошибка при изменении рабочей директории: {e}"
     else:
-        print(f"Путь {path} не существует.")
+        result = f"Путь {path} не существует."
+
+    return result
