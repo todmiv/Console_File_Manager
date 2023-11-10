@@ -31,19 +31,19 @@ def main():
         choice = input("Выберите пункт меню: ")
 
         if choice == "1":
-            cf()
+            print(cf())
         elif choice == "2":
-            dfof()
+            print(dfof())
         elif choice == "3":
-            cfof()
+            print(cfof())
         elif choice == "4":
-            vdc()
+            print(vdc())
         elif choice == "5":
-            sdc()
+            print(sdc())
         elif choice == "6":
-            vofof(choice)
+            print(vofof(choice))
         elif choice == "7":
-            vofof(choice)
+            print(vofof(choice))
         elif choice == "8":
             print(view_operating_system_info())
         elif choice == "9":
@@ -53,7 +53,7 @@ def main():
         elif choice == "11":
             bank_account()
         elif choice == "12":
-            change_working_directory()
+            print(change_working_directory())
         elif choice == "13":
             exit_program()
         else:

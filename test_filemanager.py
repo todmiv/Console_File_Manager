@@ -3,15 +3,21 @@ import platform
 import os
 import unittest.mock
 from view_and_save_directory_contents import save_directory_contents
+from decorators import beautiful_output
+
 
 # Тесты для функции view_operating_system_info
 def test_view_operating_system_info():
-    # Тестирование корректности вывода информации об операционной системе
-    assert view_operating_system_info() == f"Информация об операционной системе:\nОперационная система: {platform.system()}\nВерсия: {platform.release()}"
-    # Тестирование корректности вывода операционной системы
-    assert platform.system() in view_operating_system_info()
-    # Тестирование корректности вывода версии операционной системы
-    assert platform.release() in view_operating_system_info()
+    expected_output = "Информация об операционной системе:\n"
+    expected_output += f"Операционная система: {platform.system()}\n"
+    expected_output += f"Версия: {platform.release()}"
+    print(expected_output)
+
+    result = view_operating_system_info()
+    print(result)
+
+    assert result == expected_output, "Test failed"
+    print("Test passed")
 
 
 # Тесты для функции view_program_creator_output
@@ -119,3 +125,28 @@ def test_save_directory_contents():
     os.rmdir("test_directory")
 
     print("Тест успешно пройден")
+
+
+def test_beautiful_output():
+    # Redirect stdout to capture the printed output
+    import sys
+    from io import StringIO
+    captured_output = StringIO()
+    sys.stdout = captured_output
+
+    @beautiful_output
+    def test_function():
+        return "This is a test"
+
+    test_function()
+
+    # Reset stdout
+    sys.stdout = sys.__stdout__
+
+    result = captured_output.getvalue().strip()
+
+    expected_output = "Результат:\n------------------------\nThis is a test\n------------------------"
+
+    assert result == expected_output, "Test failed"
+    print("Test passed")
+
