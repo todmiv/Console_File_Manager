@@ -1,3 +1,9 @@
+"""
+Console File Manager - консольный файловый менеджер.
+
+Этот модуль содержит главное меню программы и импорты всех функций из других модулей.
+"""
+
 from create_folder import create_folder as cf
 from delete_file_or_folder import delete_file_or_folder as dfof
 from copy_file_or_folder import copy_file_or_folder as cfof
@@ -7,11 +13,19 @@ from view_only_folders_or_files import view_only_folders_or_files as vofof
 from seven_functions import *
 
 def exit_program():
+    """
+    Функция выхода из программы.
+    Выводит сообщение и завершает выполнение.
+    """
     print("Выход из программы.")
     exit()
 
 
 def main():
+    """
+    Главная функция программы.
+    Отображает меню и обрабатывает выбор пользователя.
+    """
     while True:
         print("Меню:")
         print("1. Создать папку")
@@ -30,6 +44,7 @@ def main():
 
         choice = input("Выберите пункт меню: ")
 
+        # Обработка выбора пользователя
         if choice == "1":
             cf()
         elif choice == "2":

@@ -1,3 +1,9 @@
+"""
+Модуль seven_functions.py содержит дополнительные функции для программы Console File Manager.
+
+Включает: информацию об ОС, о создателе, викторину, банковский счет, смену директории.
+"""
+
 import os
 import platform
 import random
@@ -7,6 +13,11 @@ from prettytable import PrettyTable
 
 # Функция просмотра информации об операционной системе
 def view_operating_system_info():
+    """
+    Возвращает строку с информацией об операционной системе.
+
+    Использует модуль platform для получения данных.
+    """
     output = "Информация об операционной системе:\n"
     output += f"Операционная система: {platform.system()}\n"
     output += f"Версия: {platform.release()}"
@@ -15,6 +26,9 @@ def view_operating_system_info():
 
 # Функция просмотр информации о создателе программы
 def view_program_creator():
+    """
+    Возвращает строку с информацией о создателе программы.
+    """
     output = "Информация о создателе программы:\n"
     output += "Создатель программы: '@todmiv'"
     return output
@@ -22,15 +36,34 @@ def view_program_creator():
 
 # Функции игры викторина
 def choose_random_people(people, num_people):
+    """
+    Выбирает случайных людей из словаря для викторины.
+
+    :param people: словарь с именами и датами рождения
+    :param num_people: количество людей для выбора
+    :return: список выбранных имен
+    """
     return random.sample(list(people.keys()), num_people)
 
 def check_answer(person, date, people):
+    """
+    Проверяет правильность ответа пользователя.
+
+    :param person: имя человека
+    :param date: введенная дата
+    :param people: словарь с правильными датами
+    :return: True если правильно, иначе False
+    """
     if date == people[person]:
         return True
     else:
         return False
 
 def play_quiz():
+    """
+    Запускает игру-викторину о датах рождения известных людей.
+    Выбирает 5 случайных людей и проверяет ответы.
+    """
     people = {
         "Пушкин Александр Сергеевич": "26.05.1799",
         "Толстой Лев Николаевич": "09.09.1828",
@@ -70,6 +103,11 @@ def play_quiz():
 
 # Функция работы с банковским счетом
 def bank_account():
+    """
+    Симулятор банковского счета.
+    Позволяет пополнять счет, совершать покупки, проверять баланс и историю.
+    Данные сохраняются в файлы balance.json и history.json.
+    """
     # Проверить наличие файлов balance.json и history.json
     if not os.path.exists("balance.json"):
         with open("balance.json", "w") as f:
@@ -128,6 +166,10 @@ def bank_account():
 
 # Функция изменения рабочей директории
 def change_working_directory():
+    """
+    Изменяет текущую рабочую директорию на указанную пользователем.
+    Проверяет существование пути перед изменением.
+    """
     path = input("Введите путь к новой рабочей директории: ")
     if os.path.exists(path):
         os.chdir(path)
